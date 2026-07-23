@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Anonymous cross-gender research study on hair fetishism (trichophilia). Independent academic research project." />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Exploring Hair Fetishism: Anonymous Cross-Gender Research Study</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: { 950: '#0a0e14', 900: '#0f1419', 800: '#1a2332', 700: '#243044', 600: '#2f3d54' },
+            accent: { DEFAULT: '#9aabbf', muted: '#6b7d94', warm: '#b8a088' },
+          },
+          fontFamily: {
+            sans: ['"Source Sans 3"', 'system-ui', 'sans-serif'],
+            serif: ['"Source Serif 4"', 'Georgia', 'serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet" />
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      background: radial-gradient(ellipse 120% 80% at 50% -20%, #1a2332 0%, #0a0e14 55%, #080b10 100%);
+      min-height: 100vh;
+    }
+    .hair-silhouette {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; opacity: 0.07;
+    }
+    .hair-silhouette svg { position: absolute; width: 100%; height: 100%; }
+    .glass {
+      background: rgba(26, 35, 50, 0.72);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(154, 171, 191, 0.12);
+    }
+    .section-panel { display: none; animation: fadeIn 0.35s ease; }
+    .section-panel.active { display: block; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .progress-fill { transition: width 0.4s ease; }
+    input[type="range"] { accent-color: #9aabbf; }
+    .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .accordion-content.open { max-height: 2000px; }
+    .choice-card:has(input:checked) {
+      border-color: rgba(154, 171, 191, 0.55);
+      background: rgba(154, 171, 191, 0.08);
+    }
+    .choice-card:focus-within { outline: 2px solid rgba(154, 171, 191, 0.35); outline-offset: 2px; }
+  </style>
+</head>
+<body class="font-sans text-gray-200 antialiased">
+  <!-- Abstract hair visual -->
+  <div class="hair-silhouette" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M720 80 C520 80 380 220 360 420 C340 620 480 780 720 820 C960 780 1100 620 1080 420 C1060 220 920 80 720 80Z" fill="#9aabbf"/>
+      <path d="M720 120 C560 120 440 240 425 400 C410 560 530 700 720 735 C910 700 1030 560 1015 400 C1000 240 880 120 720 120Z" fill="#0a0e14" opacity="0.85"/>
+      <path d="M200 900 C350 650 450 500 620 380 C780 270 920 200 1100 120 L1440 0 L1440 900 Z" fill="#6b7d94" opacity="0.4"/>
+      <path d="M0 900 C150 700 280 550 420 420 C560 290 680 200 820 100 L0 0 Z" fill="#6b7d94" opacity="0.35"/>
+    </svg>
+  </div>
+
+  <div class="relative z-10 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="border-b border-white/5 glass sticky top-0 z-20">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+        <div class="min-w-0">
+          <p class="text-xs uppercase tracking-widest text-accent-muted">Independent Research</p>
+          <h1 class="font-serif text-lg sm:text-xl text-white leading-tight truncate">Exploring Hair Fetishism</h1>
+        </div>
+        <button type="button" id="saveBtn" class="hidden sm:inline-flex shrink-0 items-center gap-2 text-sm px-3 py-1.5 rounded-lg border border-white/10 text-accent hover:bg-white/5 transition">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+          Save &amp; Continue Later
+        </button>
+      </div>
+      <div id="progressWrap" class="hidden">
+        <div class="h-1 bg-ink-700">
+          <div id="progressBar" class="progress-fill h-full bg-gradient-to-r from-accent-muted to-accent" style="width: 0%"></div>
+        </div>
+        <p id="progressLabel" class="text-center text-xs text-accent-muted py-1.5">Step 1 of 6</p>
+      </div>
+    </header>
+
+    <main class="flex-1 max-w-3xl mx-auto w-full px-4 sm:px-6 py-8 sm:py-12">
+      <!-- Landing -->
+      <section id="landing" class="section-panel active">
+        <div class="glass rounded-2xl p-6 sm:p-10 shadow-2xl">
+          <p class="text-accent text-sm font-medium mb-2">Anonymous Cross-Gender Research Study</p>
+          <h2 class="font-serif text-2xl sm:text-3xl text-white mb-6 leading-snug">Exploring Hair Fetishism: Anonymous Cross-Gender Research Study</h2>
+          <div class="space-y-4 text-gray-300 leading-relaxed">
+            <p>This is an independent research project collecting anonymous data on hair fetishism from men and women globally. The goal is to better understand this under-researched aspect of human sexuality for potential publication and academic purposes.</p>
+            <p>We warmly welcome participants of all genders. Women's perspectives are especially valuable, as this topic has historically been studied primarily through a male lens. Your voice helps build a more balanced, nuanced picture.</p>
+          </div>
+          <div class="mt-8 p-4 rounded-xl bg-ink-900/80 border border-white/5">
+            <label class="flex items-start gap-3 cursor-pointer group">
+              <input type="checkbox" id="landingConsent" class="mt-1 w-4 h-4 rounded border-gray-600 text-accent focus:ring-accent/40 bg-ink-800" />
+              <span class="text-sm text-gray-300 group-hover:text-gray-200">I am 18 or older and wish to proceed to the anonymous survey after reading the introduction.</span>
+            </label>
+          </div>
+          <button type="button" id="beginBtn" disabled class="mt-6 w-full sm:w-auto px-8 py-3 rounded-xl bg-accent/90 text-ink-950 font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-accent transition">
+            Proceed to Survey
+          </button>
+        </div>
+
+        <!-- Terms accordion on landing -->
+        <div class="mt-8 glass rounded-2xl overflow-hidden">
+          <button type="button" class="accordion-trigger w-full flex items-center justify-between px-6 py-4 text-left hover:bg-white/5 transition" data-target="termsContent">
+            <span class="font-medium text-white">Terms &amp; Privacy</span>
+            <svg class="accordion-icon w-5 h-5 text-accent transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div id="termsContent" class="accordion-content">
+            <div class="px-6 pb-6 text-sm text-gray-400 space-y-3 border-t border-white/5 pt-4">
+              <p class="font-semibold text-gray-200">Privacy Policy &amp; Terms of Participation</p>
+              <ul class="list-disc pl-5 space-y-2">
+                <li>This study collects only the data you voluntarily provide. The only personal information stored is your selected gender. No names, emails, IP addresses, or any other identifying information is collected or stored.</li>
+                <li>All responses are anonymous. We do not track or log IP addresses.</li>
+                <li>Data will be used solely for research purposes and may be published in anonymized, aggregated form.</li>
+                <li>You may withdraw at any time before submission. Once submitted, data cannot be removed as it is fully anonymous.</li>
+                <li>The researcher is not liable for any emotional or other consequences of participation. Participants must be 18+.</li>
+                <li>By submitting, you confirm you are participating voluntarily and consent to the anonymous use of your responses.</li>
+                <li>For questions contact: <a href="mailto:researcher@protonmail.com" class="text-accent hover:underline">researcher@protonmail.com</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Survey form -->
+      <form id="surveyForm" class="hidden" novalidate>
+        <!-- Form header (shown on all sections) -->
+        <div id="formHeader" class="glass rounded-2xl p-6 sm:p-8 mb-6">
+          <h2 class="font-serif text-xl sm:text-2xl text-white mb-3">Anonymous Survey: Hair Fetishes &amp; Interests (Men &amp; Women)</h2>
+          <div class="text-sm text-gray-400 space-y-2 leading-relaxed">
+            <p>Thank you for participating in this anonymous study on hair fetishes (trichophilia). We are collecting experiences and fantasies from both men and women across the globe.</p>
+            <p>Only your gender is recorded as personal information.<br />
+            Everything is completely anonymous — no email, no IP tracking, no names.<br />
+            Participation is voluntary. You can skip questions or stop anytime.<br />
+            Your honest responses help explore this topic seriously (and yes, they can be very arousing to read).<br />
+            <span class="text-accent-muted">Estimated time: 8–12 minutes.</span></p>
+          </div>
+        </div>
+
+        <!-- Section 1 -->
+        <div class="section-panel" data-section="1">
+          <div class="glass rounded-2xl p-6 sm:p-8 space-y-8">
+            <h3 class="font-serif text-lg text-accent border-b border-white/10 pb-3">Section 1: Consent &amp; Basic Information</h3>
+
+            <fieldset>
+              <legend class="block text-sm font-medium text-gray-200 mb-3">I have read the information above and consent to participate anonymously. <span class="text-red-400">*</span></legend>
+              <div class="space-y-2">
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5 transition">
+                  <input type="radio" name="consent" value="Yes" required class="text-accent" />
+                  <span>Yes</span>
+                </label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5 transition">
+                  <input type="radio" name="consent" value="No" class="text-accent" />
+                  <span>No (ends form)</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend class="block text-sm font-medium text-gray-200 mb-3">Your gender: <span class="text-red-400">*</span></legend>
+              <div class="grid sm:grid-cols-2 gap-2">
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="gender" value="Man" required class="text-accent" /><span>Man</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="gender" value="Woman" class="text-accent" /><span>Woman</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="gender" value="Non-binary / Other" class="text-accent" /><span>Non-binary / Other</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="gender" value="Prefer not to say" class="text-accent" /><span>Prefer not to say</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend class="block text-sm font-medium text-gray-200 mb-3">Age group:</legend>
+              <div class="grid sm:grid-cols-2 gap-2">
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="age_group" value="18-24" class="text-accent" /><span>18-24</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="age_group" value="25-34" class="text-accent" /><span>25-34</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="age_group" value="35-44" class="text-accent" /><span>35-44</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="age_group" value="45+" class="text-accent" /><span>45+</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend class="block text-sm font-medium text-gray-200 mb-3">Broad region you live in:</legend>
+              <div class="space-y-2">
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="region" value="South Asia (India, Pakistan, etc.)" class="text-accent" /><span>South Asia (India, Pakistan, etc.)</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="region" value="East/Southeast Asia" class="text-accent" /><span>East/Southeast Asia</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="region" value="Europe" class="text-accent" /><span>Europe</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="region" value="North America" class="text-accent" /><span>North America</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="region" value="Other / Prefer not to say" class="text-accent" /><span>Other / Prefer not to say</span></label>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+
+        <!-- Section 2 -->
+        <div class="section-panel" data-section="2">
+          <div class="glass rounded-2xl p-6 sm:p-8 space-y-8">
+            <h3 class="font-serif text-lg text-accent border-b border-white/10 pb-3">Section 2: Your Hair Fetish</h3>
+
+            <div>
+              <label for="awareness_duration" class="block text-sm font-medium text-gray-200 mb-2">5. How long have you been aware of your interest in hair sexually?</label>
+              <select id="awareness_duration" name="awareness_duration" class="w-full rounded-lg bg-ink-800 border border-white/10 px-4 py-2.5 text-gray-200 focus:ring-2 focus:ring-accent/30 focus:border-accent/40">
+                <option value="">Select an option…</option>
+                <option value="Less than 1 year">Less than 1 year</option>
+                <option value="1-5 years">1-5 years</option>
+                <option value="5-10 years">5-10 years</option>
+                <option value="10+ years">10+ years</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="intensity" class="block text-sm font-medium text-gray-200 mb-2">On a scale of 1-10, how intense is your hair fetish compared to your other sexual interests?</label>
+              <div class="flex items-center gap-4">
+                <span class="text-xs text-accent-muted">1</span>
+                <input type="range" id="intensity" name="intensity" min="1" max="10" value="5" class="flex-1 h-2 rounded-lg appearance-none bg-ink-700" />
+                <span class="text-xs text-accent-muted">10</span>
+                <output id="intensityValue" for="intensity" class="w-8 text-center font-semibold text-accent">5</output>
+              </div>
+            </div>
+
+            <fieldset>
+              <legend class="block text-sm font-medium text-gray-200 mb-3">How frequently do you think about or engage with hair in a sexual context?</legend>
+              <div class="space-y-2">
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="frequency" value="Daily" class="text-accent" /><span>Daily</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="frequency" value="Several times a week" class="text-accent" /><span>Several times a week</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="frequency" value="Weekly" class="text-accent" /><span>Weekly</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="frequency" value="Monthly or less" class="text-accent" /><span>Monthly or less</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend class="block text-sm font-medium text-gray-200 mb-3">Which aspects of hair arouse you most? <span class="text-accent-muted font-normal">(Select all that apply)</span></legend>
+              <div class="grid sm:grid-cols-2 gap-2">
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="checkbox" name="aspects" value="Long hair" class="rounded text-accent" /><span>Long hair</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="checkbox" name="aspects" value="Short hair" class="rounded text-accent" /><span>Short hair</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="checkbox" name="aspects" value="Hair color (e.g., jet-black, blonde)" class="rounded text-accent" /><span>Hair color (e.g., jet-black, blonde)</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="checkbox" name="aspects" value="Thickness / volume / straight or wavy texture" class="rounded text-accent" /><span>Thickness / volume / straight or wavy texture</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="checkbox" name="aspects" value="Scent / smell of hair" class="rounded text-accent" /><span>Scent / smell of hair</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="checkbox" name="aspects" value="Touching, brushing, or playing with hair" class="rounded text-accent" /><span>Touching, brushing, or playing with hair</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="checkbox" name="aspects" value="Hair covering the body/face/breasts" class="rounded text-accent" /><span>Hair covering the body/face/breasts</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="checkbox" name="aspects" value="Hair pulling or grabbing" class="rounded text-accent" /><span>Hair pulling or grabbing</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="checkbox" name="aspects" value="Cutting, shaving, or head shaving" class="rounded text-accent" /><span>Cutting, shaving, or head shaving</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="checkbox" name="aspects" value="Washing/oiling hair" class="rounded text-accent" /><span>Washing/oiling hair</span></label>
+                <label class="choice-card flex items-center gap-3 p-3 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5 sm:col-span-2"><input type="checkbox" name="aspects" value="Other" id="aspectsOtherCheck" class="rounded text-accent" /><span>Other (please specify)</span></label>
+              </div>
+              <input type="text" name="aspects_other" id="aspectsOtherText" placeholder="Please specify…" class="mt-3 w-full rounded-lg bg-ink-800 border border-white/10 px-4 py-2.5 text-gray-200 hidden" />
+            </fieldset>
+          </div>
+        </div>
+
+        <!-- Section 3 -->
+        <div class="section-panel" data-section="3">
+          <div class="glass rounded-2xl p-6 sm:p-8 space-y-8">
+            <h3 class="font-serif text-lg text-accent border-b border-white/10 pb-3">Section 3: Experiences</h3>
+
+            <div>
+              <label for="experience" class="block text-sm font-medium text-gray-200 mb-2">9. Describe one real-life experience involving hair that was sexually arousing for you (be as detailed and honest as you like — completely anonymous).</label>
+              <textarea id="experience" name="experience" rows="6" class="w-full rounded-lg bg-ink-800 border border-white/10 px-4 py-3 text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-accent/30 resize-y min-h-[120px]" placeholder="Your response is completely anonymous…"></textarea>
+            </div>
+
+            <div>
+              <label for="shared_partner" class="block text-sm font-medium text-gray-200 mb-2">Have you ever shared your hair fetish with a partner? What happened?</label>
+              <textarea id="shared_partner" name="shared_partner" rows="6" class="w-full rounded-lg bg-ink-800 border border-white/10 px-4 py-3 text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-accent/30 resize-y min-h-[120px]" placeholder="Optional — share as much or as little as you wish…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 4 -->
+        <div class="section-panel" data-section="4">
+          <div class="glass rounded-2xl p-6 sm:p-8 space-y-8">
+            <h3 class="font-serif text-lg text-accent border-b border-white/10 pb-3">Section 4: Fantasies</h3>
+
+            <div>
+              <label for="fantasies" class="block text-sm font-medium text-gray-200 mb-2">11. Describe your top 1-2 hair-related sexual fantasies in as much detail as you want.</label>
+              <textarea id="fantasies" name="fantasies" rows="8" class="w-full rounded-lg bg-ink-800 border border-white/10 px-4 py-3 text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-accent/30 resize-y min-h-[160px]" placeholder="Completely anonymous — be as detailed as you wish…"></textarea>
+            </div>
+
+            <fieldset>
+              <legend class="block text-sm font-medium text-gray-200 mb-3">Do your fantasies often involve specific hair types (e.g., long thick jet-black hair like many North Indian women have)?</legend>
+              <div class="flex flex-wrap gap-4 mb-3">
+                <label class="choice-card flex items-center gap-3 px-4 py-2 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="specific_hair_types" value="Yes" class="text-accent" /><span>Yes</span></label>
+                <label class="choice-card flex items-center gap-3 px-4 py-2 rounded-lg border border-white/10 cursor-pointer hover:bg-white/5"><input type="radio" name="specific_hair_types" value="No" class="text-accent" /><span>No</span></label>
+              </div>
+              <input type="text" name="specific_hair_types_detail" placeholder="If yes, please describe (optional)…" class="w-full rounded-lg bg-ink-800 border border-white/10 px-4 py-2.5 text-gray-200" />
+            </fieldset>
+          </div>
+        </div>
+
+        <!-- Section 5 -->
+        <div class="section-panel" data-section="5">
+          <div class="glass rounded-2xl p-6 sm:p-8 space-y-8">
+            <h3 class="font-serif text-lg text-accent border-b border-white/10 pb-3">Section 5: Additional Insights</h3>
+
+            <div>
+              <label for="cultural_influences" class="block text-sm font-medium text-gray-200 mb-2">13. Any cultural or regional influences on your hair fetish (e.g., Indian hair care rituals, media, etc.)?</label>
+              <textarea id="cultural_influences" name="cultural_influences" rows="5" class="w-full rounded-lg bg-ink-800 border border-white/10 px-4 py-3 text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-accent/30 resize-y" placeholder="Optional…"></textarea>
+            </div>
+
+            <div>
+              <label for="additional" class="block text-sm font-medium text-gray-200 mb-2">Is there anything else you want to share about your hair interests?</label>
+              <textarea id="additional" name="additional" rows="5" class="w-full rounded-lg bg-ink-800 border border-white/10 px-4 py-3 text-gray-200 placeholder-gray-500 focus:ring-2 focus:ring-accent/30 resize-y" placeholder="Optional…"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review & Submit -->
+        <div class="section-panel" data-section="6">
+          <div class="glass rounded-2xl p-6 sm:p-8 space-y-6">
+            <h3 class="font-serif text-lg text-accent border-b border-white/10 pb-3">Review &amp; Submit</h3>
+            <p class="text-sm text-gray-400">Please review your answers. You can go back to any section to make changes. Download a copy of your responses before submitting if you wish.</p>
+            <div id="reviewSummary" class="text-sm text-gray-300 bg-ink-900/60 rounded-xl p-4 max-h-64 overflow-y-auto border border-white/5 space-y-1"></div>
+            <div class="flex flex-col sm:flex-row gap-3">
+              <button type="button" id="downloadResponsesBtn" class="px-5 py-2.5 rounded-xl border border-accent/40 text-accent hover:bg-accent/10 transition text-sm font-medium">
+                Download My Responses
+              </button>
+              <button type="submit" id="submitBtn" class="px-8 py-2.5 rounded-xl bg-accent/90 text-ink-950 font-semibold hover:bg-accent transition text-sm">
+                Submit Anonymously
+              </button>
+            </div>
+            <p id="submitStatus" class="text-sm hidden"></p>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div id="navButtons" class="flex items-center justify-between gap-4 mt-6">
+          <button type="button" id="prevBtn" class="px-5 py-2.5 rounded-xl border border-white/10 text-gray-300 hover:bg-white/5 transition text-sm disabled:opacity-30 disabled:cursor-not-allowed">← Previous</button>
+          <button type="button" id="nextBtn" class="px-6 py-2.5 rounded-xl bg-white/10 text-white hover:bg-white/15 transition text-sm font-medium">Next →</button>
+        </div>
+
+        <button type="button" id="saveBtnMobile" class="sm:hidden mt-4 w-full py-2.5 rounded-xl border border-white/10 text-accent text-sm">Save &amp; Continue Later</button>
+      </form>
+
+      <!-- Consent declined -->
+      <section id="declined" class="hidden">
+        <div class="glass rounded-2xl p-8 text-center">
+          <h2 class="font-serif text-xl text-white mb-4">Participation Ended</h2>
+          <p class="text-gray-400">You chose not to consent. No data has been recorded. Thank you for your time.</p>
+        </div>
+      </section>
+
+      <!-- Success -->
+      <section id="success" class="hidden">
+        <div class="glass rounded-2xl p-8 sm:p-10 text-center">
+          <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-accent/15 flex items-center justify-center">
+            <svg class="w-8 h-8 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <h2 class="font-serif text-2xl text-white mb-4">Thank You!</h2>
+          <p class="text-gray-300 leading-relaxed max-w-lg mx-auto">Your responses are valuable. If you enjoyed filling this, please share the link with others (especially the opposite gender to keep balance). Stay safe and aroused.</p>
+          <div class="mt-8 p-4 rounded-xl bg-ink-900/80 border border-white/5">
+            <p class="text-xs text-accent-muted mb-2">Share this study</p>
+            <div class="flex gap-2">
+              <input type="text" id="shareLink" readonly class="flex-1 text-sm bg-ink-800 border border-white/10 rounded-lg px-3 py-2 text-gray-300" />
+              <button type="button" id="copyLinkBtn" class="px-4 py-2 rounded-lg bg-accent/20 text-accent text-sm hover:bg-accent/30 transition">Copy</button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="relative z-10 border-t border-white/5 mt-auto">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 py-6 text-center text-xs text-accent-muted">
+        Hosted anonymously • Independent research project • 2026
+      </div>
+    </footer>
+  </div>
+
+  <!-- Admin panel (access via #admin) -->
+  <div id="adminPanel" class="hidden fixed inset-0 z-50 bg-ink-950/95 overflow-y-auto p-6">
+    <div class="max-w-2xl mx-auto glass rounded-2xl p-6 sm:p-8">
+      <h2 class="font-serif text-xl text-white mb-4">Researcher: Export Submissions</h2>
+      <p class="text-sm text-gray-400 mb-4">Enter your admin passphrase (set in <code class="text-accent">js/config.js</code>). Exports all submissions stored locally in this browser plus instructions for Formspree retrieval.</p>
+      <input type="password" id="adminPass" placeholder="Admin passphrase" class="w-full mb-4 rounded-lg bg-ink-800 border border-white/10 px-4 py-2.5" />
+      <div class="flex gap-3 mb-6">
+        <button type="button" id="adminUnlock" class="px-5 py-2 rounded-xl bg-accent/90 text-ink-950 font-medium text-sm">Unlock</button>
+        <button type="button" id="adminClose" class="px-5 py-2 rounded-xl border border-white/10 text-gray-400 text-sm">Close</button>
+      </div>
+      <div id="adminTools" class="hidden space-y-3">
+        <p class="text-sm text-gray-300">Local backup submissions: <span id="submissionCount">0</span></p>
+        <button type="button" id="exportCsvBtn" class="w-full px-5 py-2.5 rounded-xl border border-accent/40 text-accent text-sm hover:bg-accent/10">Download All Submissions (CSV)</button>
+        <button type="button" id="exportJsonBtn" class="w-full px-5 py-2.5 rounded-xl border border-white/10 text-gray-300 text-sm hover:bg-white/5">Download All Submissions (JSON)</button>
+        <button type="button" id="clearLocalBtn" class="w-full px-5 py-2.5 rounded-xl border border-red-500/30 text-red-400 text-sm hover:bg-red-500/10">Clear Local Backup</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
